@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MOS Excel Specialist 2019 - 10 Education</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="logo">
+      <span>10 Education</span>
+    </a>
+    <button class="nav-toggle" aria-label="Menu">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Trang chủ</a></li>
+      <li><a href="word-specialist.html">Word Specialist</a></li>
+      <li><a href="word-expert.html">Word Expert</a></li>
+      <li><a href="excel-specialist.html">Excel Specialist</a></li>
+      <li><a href="excel-expert.html">Excel Expert</a></li>
+      <li><a href="powerpoint.html">PowerPoint</a></li>
+      <li><a href="generative-ai.html">Generative AI</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <h1>MOS Excel Specialist 2019</h1>
+    <p>Bộ câu hỏi có trong bài thi - chọn Lesson, Tab và Task để xem đề.</p>
+  </section>
+
+  <div class="container">
+    <main class="app">
+      <div class="controls">
+        <select class="select" id="lessonSelect" aria-label="Select lesson"></select>
+      </div>
+      <div class="doc-line" id="docLine"></div>
+      <div class="tab-strip" id="tabStrip"></div>
+      <div class="task-row" id="taskRow"></div>
+      <article class="card-content">
+        <h2 class="tool" id="tool"></h2>
+        <p class="english" id="english"></p>
+        <hr class="divider">
+        <p class="vietnamese" id="vietnamese"></p>
+      </article>
+    </main>
+  </div>
+
+  <footer class="footer">
+    &copy; 2026 10 Education. All rights reserved.
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script>
+    const TASKS = [];
+
+    let currentLesson = TASKS[0]?.lesson || '';
+    let currentTab = TASKS[0]?.tab || '';
+    let currentTaskIndex = 0;
+
+    const lessonSelect = document.getElementById('lessonSelect');
+    const docLine = document.getElementById('docLine');
+    const tabStrip = document.getElementById('tabStrip');
+    const taskRow = document.getElementById('taskRow');
+    const toolEl = document.getElementById('tool');
+    const englishEl = document.getElementById('english');
+    const vietnameseEl = document.getElementById('vietnamese');
+
+    const unique = values => [...new Set(values)];
+    const lessonTasks = () => TASKS.filter(t => t.lesson === currentLesson);
+    const tabTasks = () => lessonTasks().filter(t => t.tab === currentTab);
+
+    function renderLessons() {
+      const lessons = unique(TASKS.map(t => t.lesson));
+      lessonSelect.innerHTML = lessons.map(l => `<option value="${l}">${l}</option>`).join('');
+      lessonSelect.value = currentLesson;
+    }
+
+    function renderTabs() {
+      const tabs = unique(lessonTasks().map(t => t.tab));
+      if (!tabs.includes(currentTab)) currentTab = tabs[0];
+      tabStrip.innerHTML = tabs.map(tab => `<button class="tab-btn ${tab === currentTab ? 'active' : ''}" data-tab="${tab}">${tab}</button>`).join('');
+      tabStrip.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+        currentTab = btn.dataset.tab;
+        currentTaskIndex = 0;
+        render();
+      }));
+    }
+
+    function renderTaskButtons() {
+      const tasks = tabTasks();
+      if (currentTaskIndex >= tasks.length) currentTaskIndex = 0;
+      taskRow.innerHTML = tasks.map((t, i) => `<button class="task-btn ${i === currentTaskIndex ? 'active' : ''}" data-index="${i}">Task ${t.task}</button>`).join('');
+      taskRow.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+        currentTaskIndex = Number(btn.dataset.index);
+        render();
+      }));
+    }
+
+    function renderContent() {
+      const active = tabTasks()[currentTaskIndex] || lessonTasks()[0] || TASKS[0];
+      if (!active) {
+        docLine.innerHTML = '<span>Chưa có dữ liệu</span> · Nội dung sẽ được cập nhật soon.';
+        toolEl.textContent = '';
+        englishEl.textContent = '';
+        vietnameseEl.textContent = '';
+        return;
+      }
+      docLine.innerHTML = `<span>${active.lesson}</span> · ${active.document || 'Open the document and complete the following tasks:'}`;
+      toolEl.textContent = active.tool === 'General' ? '' : active.tool;
+      englishEl.textContent = active.english;
+      vietnameseEl.textContent = active.vietnamese;
+    }
+
+    function render() {
+      renderLessons();
+      renderTabs();
+      renderTaskButtons();
+      renderContent();
+    }
+
+    lessonSelect.addEventListener('change', () => {
+      currentLesson = lessonSelect.value;
+      currentTab = lessonTasks()[0]?.tab || '';
+      currentTaskIndex = 0;
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>

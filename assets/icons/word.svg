@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Word icon</title>
+  <rect width="64" height="64" rx="14" fill="#185abd"/>
+  <path d="M23 15h24a4 4 0 0 1 4 4v26a4 4 0 0 1-4 4H23z" fill="#fff" opacity=".92"/>
+  <path d="M28 22h17v3H28zm0 8h17v3H28zm0 8h12v3H28z" fill="#2b579a" opacity=".7"/>
+  <rect x="10" y="19" width="24" height="26" rx="4" fill="#103f91"/>
+  <path d="M16 26h4l2 10 3-10h3l-4 14h-4l-2-9-2 9h-4z" fill="#fff"/>
+</svg>

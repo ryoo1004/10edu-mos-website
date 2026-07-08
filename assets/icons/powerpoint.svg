@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">PowerPoint icon</title>
+  <rect width="64" height="64" rx="14" fill="#d24726"/>
+  <path d="M23 15h24a4 4 0 0 1 4 4v26a4 4 0 0 1-4 4H23z" fill="#fff" opacity=".92"/>
+  <circle cx="39" cy="30" r="10" fill="#d24726" opacity=".25"/>
+  <path d="M39 20a10 10 0 0 1 10 10H39z" fill="#d24726" opacity=".65"/>
+  <rect x="10" y="19" width="24" height="26" rx="4" fill="#a53117"/>
+  <path d="M17 25h7a5 5 0 0 1 0 10h-3v5h-4zm4 3v4h3a2 2 0 0 0 0-4z" fill="#fff"/>
+</svg>

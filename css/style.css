@@ -374,6 +374,25 @@ body {
   color: #111;
 }
 
+.word-365-page .container {
+  max-width: 1240px;
+}
+
+.word-365-page .app {
+  max-width: 1240px;
+}
+
+.word-365-page .card-content {
+  min-height: auto;
+  padding: 20px 20px 22px;
+}
+
+.word-365-page .english,
+.word-365-page .vietnamese {
+  font-size: 15px;
+  font-weight: 700;
+}
+
 /* Footer */
 .footer {
   text-align: center;

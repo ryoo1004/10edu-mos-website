@@ -393,6 +393,59 @@ body {
   font-weight: 700;
 }
 
+.text-highlight {
+  border-radius: 3px;
+  padding: 0 2px;
+}
+
+.highlight-toolbar {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid rgba(169, 52, 93, .16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .92);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  color: var(--pink-dark);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.highlight-color {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(255, 255, 255, .9);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
+  cursor: pointer;
+}
+
+.highlight-clear {
+  border: 0;
+  border-radius: 999px;
+  background: var(--pink-soft);
+  color: var(--pink-dark);
+  cursor: pointer;
+  font-weight: 800;
+  padding: 6px 10px;
+}
+
+@media (max-width: 760px) {
+  .highlight-toolbar {
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    justify-content: center;
+    border-radius: 18px;
+  }
+}
+
 /* Footer */
 .footer {
   text-align: center;

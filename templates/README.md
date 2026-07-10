@@ -44,3 +44,5 @@ Each item in `{{TASKS_JSON}}` must use this shape:
 ## Notes
 
 GitHub Pages is public hosting. Long filenames reduce casual guessing but are not real access control.
+
+The template includes `js/highlighter.js`, which adds learner-side text highlighting with local browser storage. Highlights are saved per page, task, and field on the learner's device.

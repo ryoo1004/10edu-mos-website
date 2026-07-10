@@ -42,6 +42,7 @@
   </footer>
 
   <script src="js/nav.js"></script>
+  <script src="js/highlighter.js"></script>
   <script>
     const TASKS = [
     {
@@ -517,14 +518,15 @@
       if (!active) {
         docLine.innerHTML = '<span>Chưa có dữ liệu</span> · Nội dung sẽ được cập nhật soon.';
         toolEl.textContent = '';
-        englishEl.textContent = '';
-        vietnameseEl.textContent = '';
+        window.HighlightTool?.clearElement(englishEl);
+        window.HighlightTool?.clearElement(vietnameseEl);
         return;
       }
       docLine.innerHTML = `<span>${active.lesson}</span> · ${active.document || 'Open the document and complete the following tasks:'}`;
       toolEl.textContent = active.tool === 'General' ? '' : active.tool;
-      englishEl.textContent = active.english;
-      vietnameseEl.textContent = active.vietnamese;
+      const highlightKey = [active.lesson, active.tab, active.task].join('|');
+      window.HighlightTool?.setText(englishEl, `${highlightKey}|english`, active.english);
+      window.HighlightTool?.setText(vietnameseEl, `${highlightKey}|vietnamese`, active.vietnamese);
     }
 
     function render() {

@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tài liệu giảng MOS Excel 365 Apps (Song ngữ) - 10 Education</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="word-365-page">
+  <section class="hero">
+    <div class="hero-brand">
+      <img src="assets/logo.png" alt="10 Education logo">
+      <span>10 Education</span>
+    </div>
+    <h1>Tài liệu giảng MOS Excel 365 Apps (Song ngữ)</h1>
+    <p>Hãy ấn chọn Lesson, Tab và Task tương ứng để xem đề.</p>
+    <div class="hero-actions">
+      <a class="button-link" href="https://drive.google.com/file/d/1D7VD0ov1ho7C34rjDrdCoqEGXa1Xsj7p/view" target="_blank" rel="noopener">Tải đề bài bản PDF</a>
+      <a class="button-link" href="https://drive.google.com/file/d/1mWbUkN9wbngdLreb8Jbpob1k6BHGSghs/view" target="_blank" rel="noopener">Tải tài liệu thực hành</a>
+    </div>
+  </section>
+
+  <div class="container">
+    <main class="app">
+      <div class="controls">
+        <select class="select" id="lessonSelect" aria-label="Select lesson"></select>
+      </div>
+      <div class="doc-line" id="docLine"></div>
+      <div class="tab-strip" id="tabStrip"></div>
+      <div class="task-row" id="taskRow"></div>
+      <article class="card-content">
+        <h2 class="tool" id="tool"></h2>
+        <p class="english" id="english"></p>
+        <hr class="divider">
+        <p class="vietnamese" id="vietnamese"></p>
+      </article>
+    </main>
+  </div>
+
+  <footer class="footer">
+    &copy; 2026 10 Education. All rights reserved.
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script>
+    const TASKS = [
+  {
+    "lesson": "Lesson 1",
+    "task": 1,
+    "tab": "TAB FILE",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "In the document properties, add “Math 101” as a tag.",
+    "vietnamese": "Trong thuộc tính văn bản, thêm “Math 101” như thẻ."
+  },
+  {
+    "lesson": "Lesson 1",
+    "task": 2,
+    "tab": "TAB FILE",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "Remove hidden properties and personal information from the workbook. Do not remove any other content.",
+    "vietnamese": "Xóa các thuộc tính bị ẩn và thông tin cá nhân khỏi sổ làm việc. Không xóa bất kì nội dung nào khác."
+  },
+  {
+    "lesson": "Lesson 1",
+    "task": 3,
+    "tab": "TAB FILE",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "Check the workbook for accessibility and correct the error Avoid Red Formatting reported in the inspection result using the recommended action. Editing negative number format using a negative sign.",
+    "vietnamese": "Kiểm tra bảng tính cho khả năng tương hợp (accessibility) và sửa lỗi Avoid Red Formatting được đề cập trong phần inspection result bằng cách sử dụng gợi ý chỉnh sửa (recommend action) đầu tiên. Điều chỉnh định dạng của số âm, sử dụng dấu âm (dấu “-”)."
+  },
+  {
+    "lesson": "Lesson 1",
+    "task": 4,
+    "tab": "TAB FILE",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "Change the orientation printing setting for “Invoice” worksheet to Landscape. Fit sheet on one page.",
+    "vietnamese": "Cài đặt hướng trang in cho trang tính “Invoice” thành ngang (Landscape). Điều chỉnh trang tính sao cho vừa một trang in."
+  },
+  {
+    "lesson": "Lesson 1",
+    "task": 5,
+    "tab": "TAB HOME",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Catalog” worksheet, name all the blue cells in the “Description” column as “BlazingBikes”.",
+    "vietnamese": "Trên trang tính “Catalog”, đặt tên cho các ô màu xanh dương trong cột Description là “BlazingBikes”."
+  },
+  {
+    "lesson": "Lesson 1",
+    "task": 6,
+    "tab": "TAB HOME",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Accounting” worksheet, navigate to range C3:C5 and change the data of the first cell in this range to “6000”.",
+    "vietnamese": "Trên trang tính “Accounting”, điều hướng tới vùng ô C3:C5 và thay đổi dữ liệu của ô đầu tiên thành 6000."
+  },
+  {
+    "lesson": "Lesson 1",
+    "task": 7,
+    "tab": "TAB HOME",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "Delete all rows on the “Catalog” worksheet that contains data “Mountain” from the Style column.",
+    "vietnamese": "Trên trang tính “Catalog”, xóa tất cả các hàng chứa dữ liệu Mountain trong cột bảng Style."
+  },
+  {
+    "lesson": "Lesson 1",
+    "task": 8,
+    "tab": "TAB HOME",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "Group the “Besam”, “Country” and “Score” worksheets and change the tab color to Yellow.",
+    "vietnamese": "Nhóm (Group) các trang tính “Besam”, “Country”, “Score” và điều chỉnh tab color thành Yellow."
+  },
+  {
+    "lesson": "Lesson 1",
+    "task": 9,
+    "tab": "TAB HOME",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "Use a builtin Excel feature to copy all the format of cell range A1:G2 located on the “Costs” worksheet and paste to range A1:E2 of the “Cookie” worksheet.",
+    "vietnamese": "Sử dụng tính năng có sẵn trong Excel để sao chép toàn bộ định dạng của vùng A1:G2 trên trang tính “Costs” và dán vào vùng ô A1:E2 của trang tính “Cookie”."
+  },
+  {
+    "lesson": "Lesson 1",
+    "task": 10,
+    "tab": "TAB HOME",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Accounting” worksheet, copy the data from cell range B2:G5 and transpose it to the cell range beginning at cell J3 on the “Employee Hours” worksheet.",
+    "vietnamese": "Trên trang tính “Accounting”, sao chép dữ liệu từ vùng ô B2:G5 và dán kiểu Transpose tới vùng ô bắt đầu từ ô J3 trên trang tính “Employee Hours”."
+  },
+  {
+    "lesson": "Lesson 1",
+    "task": 11,
+    "tab": "TAB HOME",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Sales” worksheet, change the alignment of cell range J3:K3 to Center Across Selection.",
+    "vietnamese": "Trên trang tính “Sales”, thay đổi căn lề (Alignment) của vùng ô J3:K3 thành Center Across Selection."
+  },
+  {
+    "lesson": "Lesson 1",
+    "task": 12,
+    "tab": "TAB HOME",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Besam” worksheet, unmerge cell A1.",
+    "vietnamese": "Trên trang tính “Besam”, bỏ gộp (Unmerge) ô A1."
+  },
+  {
+    "lesson": "Lesson 1",
+    "task": 13,
+    "tab": "TAB HOME",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Cookie” worksheet, apply accounting number format to display the numbers in “Cost”, “Price”, and “Margin” columns to include only 2 decimal places with the Euro symbol (€) left-aligned.",
+    "vietnamese": "Trên trang tính “Cookie”, trong các cột bảng Cost, Price, và Margin, áp dụng định dạng số kiểu Accounting, có 2 chữ số thập phân với kí hiệu Euro (€) được căn trái."
+  },
+  {
+    "lesson": "Lesson 1",
+    "task": 14,
+    "tab": "TAB HOME",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Costs” worksheet, in “Total Profit” column, use conditional formatting to apply Green Fill with Dark Green text to the cell that contain values greater than 800.",
+    "vietnamese": "Trên trang tính “Costs”, trong cột bảng Total Profit, sử dụng tính năng định dạng có điều kiện (Conditional Formatting) để áp dụng Green Fill with Dark Green cho các ô có giá trị lớn hơn 800."
+  },
+  {
+    "lesson": "Lesson 1",
+    "task": 15,
+    "tab": "TAB HOME",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Bun” worksheet, apply Green, Accent 6 cell style to cell range A1:E1.",
+    "vietnamese": "Trên trang tính “Bun”, áp dụng kiểu (Style) Green, Accent 6 cho vùng ô A1:E1."
+  },
+  {
+    "lesson": "Lesson 1",
+    "task": 16,
+    "tab": "TAB HOME",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Employee Hours” worksheet, adjust the height of row 20 to “65”/adjust the width of columns B through G to exactly “12”.",
+    "vietnamese": "Trên trang tính “Employee Hours”, điều chỉnh chiều cao của hàng 20 thành 65/điều chỉnh các cột B:G có độ rộng chính xác là “12”."
+  },
+  {
+    "lesson": "Lesson 1",
+    "task": 17,
+    "tab": "TAB HOME",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "Simultaneously replace all occurrences of the word “Choco” with “Chocolate” in the workbook.",
+    "vietnamese": "Đồng thời thay thế tất cả các từ Choco thành Chocolate trong bảng tính."
+  },
+  {
+    "lesson": "Lesson 2",
+    "task": 1,
+    "tab": "TAB INSERT",
+    "tool": "Table",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Besam” worksheet, format cell range A2:E12 as a table with the headers. Apply table style White, Table style Light 1.",
+    "vietnamese": "Trên trang tính “Besam”, định dạng vùng ô A2:E12 thành một bảng chứa tiêu đề (table with the headers). Áp dụng định dạng cho bảng kiểu White, Table style Light 1."
+  },
+  {
+    "lesson": "Lesson 2",
+    "task": 2,
+    "tab": "TAB INSERT",
+    "tool": "Table",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Besam” worksheet, add only column F to the table so that data “Histogram” is the header of the new table column.",
+    "vietnamese": "Trên trang tính “Besam”, thêm duy nhất cột F vào bảng sao cho Histogram là tiêu đề của cột bảng mới."
+  },
+  {
+    "lesson": "Lesson 2",
+    "task": 3,
+    "tab": "TAB INSERT",
+    "tool": "Table",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "Convert Rates14 table to a cell range/remove the table functionality from the table. Keep the formatting.",
+    "vietnamese": "Chuyển bảng Rates14 thành 1 vùng ô/ Xóa tính năng bảng của bảng Rates14. Giữ nguyên định dạng."
+  },
+  {
+    "lesson": "Lesson 2",
+    "task": 4,
+    "tab": "TAB INSERT",
+    "tool": "Chart",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Bun” worksheet, create a Clustered Column chart that shows the Sales for all the employees with the employees as the horizontal axis labels. Apply Layout 3 and Monochromatic Pallet 2 color to the chart. Remove the legend. The exact size and position of the chart do not matter.",
+    "vietnamese": "Trên trang tính “Bun”, tạo biểu đồ dạng Clustered Column để hiển thị doanh thu cho tất cả nhân viên, với tên nhân các viên hiển thị dưới trục ngang (Horizontal Axis). Đặt biểu đồ nằm bên phải của bảng. Kích thước và vị trí chính xác không quan trọng."
+  },
+  {
+    "lesson": "Lesson 2",
+    "task": 5,
+    "tab": "TAB INSERT",
+    "tool": "Chart",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Profits” worksheet, expand the chart data range to include the “Price” of existing flavors. Update the chart to change the elements displayed in the chart by applying Layout 2.",
+    "vietnamese": "Trên trang tính “Profits”, mở rộng vùng biểu đồ sao cho bao gồm giá tiền (Price). thay đổi các phần tử (elements) hiển thị trong biểu đồ bằng cách thay đổi bố cục (layout) của biểu đồ thành Layout 2."
+  },
+  {
+    "lesson": "Lesson 2",
+    "task": 6,
+    "tab": "TAB INSERT",
+    "tool": "Chart",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "From the “Costs” worksheet, move the chart to a new chart sheet named “Cookie Chart”.",
+    "vietnamese": "Từ trang tính “Costs”, di chuyển biểu đồ sang một trang tính biểu đồ mới có tên Cookie Chart."
+  },
+  {
+    "lesson": "Lesson 2",
+    "task": 7,
+    "tab": "TAB INSERT",
+    "tool": "Chart",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "In “Trend” column on the “Parts” worksheet, insert Line sparklines to compare the revenue from Jan through Mar for each saleperson.",
+    "vietnamese": "Trên trang tính “Parts”, tại cột Trend, chèn biểu đồ thu nhỏ (Sparklines) Line để so sánh doanh thu từ tháng 1 (Jan) đến tháng 3 (Mar) cho mỗi người bán hàng."
+  },
+  {
+    "lesson": "Lesson 2",
+    "task": 8,
+    "tab": "TAB INSERT",
+    "tool": "Hyperlinks",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Besam” worksheet, in cell A1, insert a hyperlink to https://10education.vn. Display the text as “More Information” with the ScreenTip that displays “Company Website”.",
+    "vietnamese": "Trên trang tính “Besam”, trong ô A1, chèn siêu liên kết (hyperlink) đến https://10education.vn. Hiển thị nội dung trong ô là “More Information” với ScreenTip hiển thị “Company Website”."
+  },
+  {
+    "lesson": "Lesson 2",
+    "task": 9,
+    "tab": "TAB INSERT",
+    "tool": "Header/Footer",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "Insert page number for the “Sales” worksheet in the center of the footer that displays the format Page P of N, where P is the Page Number and N is the Number of Pages. Then, return to Normal view.",
+    "vietnamese": "Trên trang tính “Sales”, chèn số trang (Page Number) vào giữa dòng chân trang (Footer) sao cho hiển thị định dạng Page P of N, với P là số thứ tự của trang tính (Page Number) và N là tổng số trang tính (Number of Pages). Sau đó trở lại chế độ xem bình thường (Normal)."
+  },
+  {
+    "lesson": "Lesson 2",
+    "task": 10,
+    "tab": "TAB PAGE LAYOUT",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "Configure the “Besam” worksheet so that only cells A1:F12 will be printed.",
+    "vietnamese": "Thiết lập cấu hình trang tính “Besam” sao cho chỉ in các ô từ A1:F12."
+  },
+  {
+    "lesson": "Lesson 2",
+    "task": 11,
+    "tab": "TAB PAGE LAYOUT",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Cookie” worksheet, repeat rows 1 through 3 so they appear on all printed pages.",
+    "vietnamese": "Trên trang tính “Cookie”, lặp lại các hàng từ 1 tới 3 sao cho chúng xuất hiện trên tất cả các trang in."
+  },
+  {
+    "lesson": "Lesson 2",
+    "task": 12,
+    "tab": "TAB PAGE LAYOUT",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Cookie” worksheet, set the Page margins to the following specifications: Top & Bottom: 1.18\" (3 cm), Left & Right: 1\" (2.54 cm) and Footer & Header: 0.3” (0.76 cm).",
+    "vietnamese": "Trên trang tính “Cookie”, thay đổi lề trang theo các thông số sau: lề trên và lề dưới (Top & Bottom): 1.18\" (3cm), lề trái và lề phải (Left & Right): 1\" (2,54 cm) và lề cho chân trang và đầu trang (Footer & Header): 0.3\" (0,76 cm)."
+  },
+  {
+    "lesson": "Lesson 3",
+    "task": 1,
+    "tab": "TAB FORMULAS",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "In cell J4 on the “Sales” worksheet, enter a formula that add all the values in the “Hillside_Park” range. Use range names in the formula instead of cell references or value.",
+    "vietnamese": "Trên trang tính “Sales”, tại ô J4, nhập một công thức để tính tổng tất cả các giá trị của các ô nằm trong phạm vi “Hillside_Park”. ùng tên phạm vi trong công thức thay vì tham chiếu ô hoặc giá trị."
+  },
+  {
+    "lesson": "Lesson 3",
+    "task": 2,
+    "tab": "TAB FORMULAS",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Employee Bonuses” worksheet, in the “Commission” column, enter a formula that multiplies values in the “Total Sales” column by the “Rate” named range. Use the range name in the formula instead of a cell reference or value.",
+    "vietnamese": "Trên trang tính “Employee Bonuses”, trong cột bảng Commission, nhập công thức nhân giá trị trong cột Total Sales với với phạm vi ô được đặt tên “Rate”. Dùng tên phạm vi trong công thức thay vì tham chiếu ô hoặc giá trị."
+  },
+  {
+    "lesson": "Lesson 3",
+    "task": 3,
+    "tab": "TAB FORMULAS",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Parts” worksheet, in the “Monthly Average” column, use a function to calculate the average monthly sales for each salesperson from Jan to Mar.",
+    "vietnamese": "Trên trang tính “Parts”, trong cột bảng Monthly Average, sử dụng hàm để tính doanh thu trung bình từ Jan đến Mar."
+  },
+  {
+    "lesson": "Lesson 3",
+    "task": 4,
+    "tab": "TAB FORMULAS",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Parts” worksheet, in the “Rewarding” column, enter a formula which checks the average sales from Jan to Mar and displays \"Super Sales!\" if the average is equal or exceed 30,000. Otherwise, leave it blank.",
+    "vietnamese": "Trên trang tính “Parts”, trong cột bảng Rewarding, sử dụng hàm để xét nếu doanh thu trung bình từ Jan đến Mar lớn hơn hoặc bằng 30,000 thì hiển thị dòng chữ Super Sales!, nếu không thì để trống."
+  },
+  {
+    "lesson": "Lesson 3",
+    "task": 5,
+    "tab": "TAB FORMULAS",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Scores” worksheet, in cell F24, use a function to determine how many students do not have an “Exam 3” result/calculate how many missing items in Exam 3 column.",
+    "vietnamese": "Trên trang tính “Scores”, tại ô F24, sử dụng hàm để tính có bao nhiêu học sinh không tham gia bài thi Exam 3/Tính có bao nhiêu số liệu bị thiếu ở cột bảng Exam 3."
+  },
+  {
+    "lesson": "Lesson 3",
+    "task": 6,
+    "tab": "TAB FORMULAS",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Sales” worksheet, randomly generated numbers between 1000 and 2000 to populate the “Code” column from A4:A87.",
+    "vietnamese": "Trên trang tính “Sales”, tạo các số ngẫu nhiên nằm giữa 1000 và 2000 ở cột bảng Code trong vùng ô A4:A87."
+  },
+  {
+    "lesson": "Lesson 3",
+    "task": 7,
+    "tab": "TAB FORMULAS",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Company” worksheet, in the “Mã chức vụ” column, use a function to display the first three characters from the ID member column.",
+    "vietnamese": "Trên trang tính “Company”, trong cột bảng Mã chức vụ, sử dụng hàm để hiển thị 3 kí tự đầu tiêntừ cột ID member."
+  },
+  {
+    "lesson": "Lesson 3",
+    "task": 8,
+    "tab": "TAB FORMULAS",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "In cell L3 on the “Country” worksheet, use a function to create a list of countries from the \"Code” column without retrieving duplicate values.",
+    "vietnamese": "Trên trang tính “Country”, tại ô L3, dùng hàm để tạo một danh sách các nước từ cột bảng “Code” không chứa các giá trị bị trùng lặp."
+  },
+  {
+    "lesson": "Lesson 3",
+    "task": 9,
+    "tab": "TAB FORMULAS",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "The “Present” sheet shows the presentation time of each student, it is spaced every 30 minutes, modify the function in “Presenting time” column so that the intervals are every 15 minutes. Note: Do not change the structure of the formulas.",
+    "vietnamese": "Trang tính “Present” hiển thị thời gian có mặt của từng học sinh cách nhau mỗi 30 phút. Điều chỉnh hàm trong cột bảng Presenting time sao cho các khoảng thời gian cách nhau mỗi 15 phút. Lưu ý: Không thay đổi cấu trúc của hàm."
+  },
+  {
+    "lesson": "Lesson 3",
+    "task": 10,
+    "tab": "TAB FORMULAS",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Parts” worksheet, insert a function in cell A14 below the heading “Sales Ranking (Jan)”, that sorts the data in cell range A4:B11 in descending order.",
+    "vietnamese": "Trên trang tính “Parts”, sử dụng hàm tại ô A14 phía dưới tiêu đề Sales Ranking (Jan) để sắp xếp (Sort) dữ liệu ở vùng ô A4:B11 theo thứ tự giảm dần (Descending)."
+  },
+  {
+    "lesson": "Lesson 3",
+    "task": 11,
+    "tab": "TAB DATA",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "In cell A5 on the “Grade” worksheet, import the data from the Grade1990-2000 text file in the Tài liệu giảng folder. Ensure that the heading is the first row of the source data.",
+    "vietnamese": "Trên trang tính “Grade”, tại ô A5, nhập dữ liệu từ tệp văn bản Grade1990-2000 trong thư mục Tài liệu giảng. Đảm bảo rằng tiêu đề là hàng đầu tiên của dữ liệu nguồn. Perform a multiple column sort on the data in the Invoice table. First sort alphabetically by Region (from A to Z), then sort by Quantity (From Smallest to Largest), finally sort by Season (Spring, Summer, Fall). TIẾNG VIỆT: Trong bảng Invoice, sắp xếp dữ liệu nhiều cấp độ cho bảng. Đầu tiên, sắp xếp cho Region theo thứ tự từ A đến Z (from A to Z), sau đó sắp xếp số lượng (Quantity) từ nhỏ nhất tới lớn nhất (from Smallest to Largest) cuối cùng sắp xếp theo mùa (Season) (Spring, Summer, Fall)."
+  },
+  {
+    "lesson": "Lesson 3",
+    "task": 12,
+    "tab": "TAB DATA",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "Filter the “Flavors” range to display only flavors with a Cost that is Above Average.",
+    "vietnamese": "Lọc dữ liệu (Filter) trong vùng Flavors để chỉ những hương vị có giá tiền (cost) trên trung bình (Above Average) được hiển thị."
+  },
+  {
+    "lesson": "Lesson 3",
+    "task": 13,
+    "tab": "TAB REVIEW",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "Delete the Comments on the “Besam” worksheet.",
+    "vietnamese": "Trên trang tính “Besam”, xóa các bình luận (Comments)."
+  },
+  {
+    "lesson": "Lesson 3",
+    "task": 14,
+    "tab": "TAB VIEW",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "On the “Cookie” worksheet, freeze row 1 through row 3 so the title and column headings always remain visible while scrolling.",
+    "vietnamese": "Trên trang tính “Cookie”, ố định (freeze) các hàng từ hàng 1 đến hàng 3 sao cho tiêu đề (title) và tiêu đề cột (column headings) luôn hiển thị khi cuộn."
+  },
+  {
+    "lesson": "Lesson 3",
+    "task": 15,
+    "tab": "TAB VIEW",
+    "tool": "General",
+    "document": "Open file MOCK TEST GIẢNG 365.xlsx and complete the following tasks:",
+    "english": "Display the “Sales” worksheet in the Page layout view.",
+    "vietnamese": "Hiển thị trang tính “Sales” trong chế độ Page layout."
+  }
+];
+
+    let currentLesson = TASKS[0]?.lesson || '';
+    let currentTab = TASKS[0]?.tab || '';
+    let currentTaskIndex = 0;
+
+    const lessonSelect = document.getElementById('lessonSelect');
+    const docLine = document.getElementById('docLine');
+    const tabStrip = document.getElementById('tabStrip');
+    const taskRow = document.getElementById('taskRow');
+    const toolEl = document.getElementById('tool');
+    const englishEl = document.getElementById('english');
+    const vietnameseEl = document.getElementById('vietnamese');
+
+    const unique = values => [...new Set(values)];
+    const lessonTasks = () => TASKS.filter(t => t.lesson === currentLesson);
+    const tabTasks = () => lessonTasks().filter(t => t.tab === currentTab);
+
+    function renderLessons() {
+      const lessons = unique(TASKS.map(t => t.lesson));
+      lessonSelect.innerHTML = lessons.map(l => `<option value="${l}">${l}</option>`).join('');
+      lessonSelect.value = currentLesson;
+    }
+
+    function renderTabs() {
+      const tabs = unique(lessonTasks().map(t => t.tab));
+      if (!tabs.includes(currentTab)) currentTab = tabs[0];
+      tabStrip.innerHTML = tabs.map(tab => `<button class="tab-btn ${tab === currentTab ? 'active' : ''}" data-tab="${tab}">${tab}</button>`).join('');
+      tabStrip.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+        currentTab = btn.dataset.tab;
+        currentTaskIndex = 0;
+        render();
+      }));
+    }
+
+    function renderTaskButtons() {
+      const tasks = tabTasks();
+      if (currentTaskIndex >= tasks.length) currentTaskIndex = 0;
+      taskRow.innerHTML = tasks.map((t, i) => `<button class="task-btn ${i === currentTaskIndex ? 'active' : ''}" data-index="${i}">Task ${t.task}</button>`).join('');
+      taskRow.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+        currentTaskIndex = Number(btn.dataset.index);
+        render();
+      }));
+    }
+
+    function renderContent() {
+      const active = tabTasks()[currentTaskIndex] || lessonTasks()[0] || TASKS[0];
+      if (!active) {
+        docLine.innerHTML = '<span>Chưa có dữ liệu</span> · Nội dung sẽ được cập nhật soon.';
+        toolEl.textContent = '';
+        englishEl.textContent = '';
+        vietnameseEl.textContent = '';
+        return;
+      }
+      docLine.innerHTML = `<span>${active.lesson}</span> · ${active.document || 'Open the document and complete the following tasks:'}`;
+      toolEl.textContent = active.tool === 'General' ? '' : active.tool;
+      englishEl.textContent = active.english;
+      vietnameseEl.textContent = active.vietnamese;
+    }
+
+    function render() {
+      renderLessons();
+      renderTabs();
+      renderTaskButtons();
+      renderContent();
+    }
+
+    lessonSelect.addEventListener('change', () => {
+      currentLesson = lessonSelect.value;
+      currentTab = lessonTasks()[0]?.tab || '';
+      currentTaskIndex = 0;
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>

@@ -3,30 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MOS Excel Specialist 2019 - 10 Education</title>
+  <title>{{PAGE_TITLE}} - 10 Education</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  <nav class="navbar">
-    <a href="index.html" class="logo">
+<body class="word-365-page">
+  <section class="hero">
+    <div class="hero-brand">
       <img src="assets/logo.png" alt="10 Education logo">
       <span>10 Education</span>
-    </a>
-    <button class="nav-toggle" aria-label="Menu">&#9776;</button>
-    <ul class="nav-links">
-      <li><a href="index.html">Trang chủ</a></li>
-      <li><a href="word-specialist.html">Word Specialist</a></li>
-      <li><a href="word-expert.html">Word Expert</a></li>
-      <li><a href="excel-specialist.html">Excel Specialist</a></li>
-      <li><a href="excel-expert.html">Excel Expert</a></li>
-      <li><a href="powerpoint.html">PowerPoint</a></li>
-      <li><a href="generative-ai.html">Generative AI</a></li>
-    </ul>
-  </nav>
-
-  <section class="hero">
-    <h1>MOS Excel Specialist 2019</h1>
-    <p>Bộ câu hỏi có trong bài thi - chọn Lesson, Tab và Task để xem đề.</p>
+    </div>
+    <h1>{{COURSE_TITLE}}</h1>
+    <p>{{COURSE_SUBTITLE}}</p>
+    <div class="hero-actions">
+      <a class="button-link" href="{{PDF_URL}}" target="_blank" rel="noopener">{{PDF_BUTTON_TEXT}}</a>
+      <a class="button-link" href="{{PRACTICE_URL}}" target="_blank" rel="noopener">{{PRACTICE_BUTTON_TEXT}}</a>
+    </div>
   </section>
 
   <div class="container">
@@ -51,8 +42,9 @@
   </footer>
 
   <script src="js/nav.js"></script>
+  <script src="js/highlighter.js"></script>
   <script>
-    const TASKS = [];
+    const TASKS = {{TASKS_JSON}};
 
     let currentLesson = TASKS[0]?.lesson || '';
     let currentTab = TASKS[0]?.tab || '';
@@ -102,14 +94,15 @@
       if (!active) {
         docLine.innerHTML = '<span>Chưa có dữ liệu</span> · Nội dung sẽ được cập nhật soon.';
         toolEl.textContent = '';
-        englishEl.textContent = '';
-        vietnameseEl.textContent = '';
+        window.HighlightTool?.clearElement(englishEl);
+        window.HighlightTool?.clearElement(vietnameseEl);
         return;
       }
       docLine.innerHTML = `<span>${active.lesson}</span> · ${active.document || 'Open the document and complete the following tasks:'}`;
       toolEl.textContent = active.tool === 'General' ? '' : active.tool;
-      englishEl.textContent = active.english;
-      vietnameseEl.textContent = active.vietnamese;
+      const highlightKey = [active.lesson, active.tab, active.task].join('|');
+      window.HighlightTool?.setText(englishEl, `${highlightKey}|english`, active.english);
+      window.HighlightTool?.setText(vietnameseEl, `${highlightKey}|vietnamese`, active.vietnamese);
     }
 
     function render() {
